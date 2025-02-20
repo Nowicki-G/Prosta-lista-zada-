@@ -23,6 +23,11 @@
         render();
     };
 
+    const toggleTaskDone = (taskIndex) => {
+        tasks[taskIndex].done = !tasks[taskIndex].done;
+        render();
+    };
+
     const render = () => {
         let htmlString = "";
 
@@ -31,9 +36,9 @@
             <li 
               ${task.done ? "style= \"text-decoration: line-through\"" : ""}
               >
-
               <button class= "js-delete">usuń zadanie</button>
               ${task.content}
+             <button class = "js-done">zrobione?</button>
             </li>
             `;
         }
@@ -47,27 +52,35 @@
                 removeTask(index);
             });
         });
-    };
-
     
-    const onFormSubmit = (event) => {
-        event.preventDefault();
 
-        const newTaskContent = document.querySelector(".js-newTask").value.trim();
-        if (newTaskContent === "") {
-            return "";
-        }
+    const toggleDoneButtons = document.querySelectorAll(".js-done");
 
-        addNewTask(newTaskContent);
-    };
+    toggleDoneButtons.forEach((toggleDoneButton, index) => {
+        toggleDoneButton.addEventListener("click", () => {
+            toggleTaskDone(index);
+        });
+    });
+};
+
+const onFormSubmit = (event) => {
+    event.preventDefault();
+
+    const newTaskContent = document.querySelector(".js-newTask").value.trim();
+    if (newTaskContent === "") {
+        return "";
+    }
+
+    addNewTask(newTaskContent);
+};
 
 
-    const init = () => {
-        render();
+const init = () => {
+    render();
 
-        const form = document.querySelector(".js-form");
-        form.addEventListener("submit", onFormSubmit);
-    };
+    const form = document.querySelector(".js-form");
+    form.addEventListener("submit", onFormSubmit);
+};
 
-    init();
+init();
 }
