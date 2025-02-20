@@ -1,22 +1,12 @@
 {
-    const tasks = [
-        {
-            content: "nagrać lekcje",
-            done: false,
-        },
-        {
-            content: "zjeść pierogi",
-            done: true,
-        },
-    ];
+    const tasks = [];
+   
 
     const addNewTask = (newTaskContent) => {
-        tasks.push({
-            content: newTaskContent,
-        });
-
+        tasks.push({ content: newTaskContent});
         render();
     };
+    
 
     const removeTask = (taskIndex) => {
         tasks.splice(taskIndex, 1);
